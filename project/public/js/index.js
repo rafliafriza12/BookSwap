@@ -214,17 +214,17 @@ const confirmPassword = () =>{
     }
 }
 
-const scrollChat = () => {
-    try {
-        const container = document.getElementById('all-chats-container');
-        container.scrollTo({
-            top: container.scrollHeight,
-            behavior: 'smooth' // Opsional, untuk animasi pergerakan
-        });
-    } catch (error) {
+// const scrollChat = () => {
+//     try {
+//         const container = document.getElementById('all-chats-container');
+//         container.scrollTo({
+//             top: container.scrollHeight,
+//             behavior: 'smooth' // Opsional, untuk animasi pergerakan
+//         });
+//     } catch (error) {
         
-    }
-}
+//     }
+// }
 
 tooglePassword();
 toogleConfirmPassword();
@@ -236,4 +236,4 @@ canBorrow();
 search();
 confirmPassword();
 // deleteMyBook();
-scrollChat();
+// scrollChat();

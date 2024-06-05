@@ -48,7 +48,7 @@
         </div>
         <div class=" w-full h-[7%] flex justify-between">
             <input autocomplete="off" type="text" name="message" class=" w-[92%] h-full bg-transparent focus:outline-none border border-[#b3b3b3] rounded-3xl px-5 text-[#b3b3b3] focus:border-[#1db954] placeholder:text-[#b3b3b3]/60" placeholder="Isi pesan disini" required>
-            <button type="submit" class=" w-[5%] h-full" onclick="scrollChat()">
+            <button type="submit" class=" w-[5%] h-full">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#1db954" class="h-full w-full">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
                   </svg>
