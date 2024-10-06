@@ -97,7 +97,7 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v6
       with:
-        context: ./project  # Menetapkan konteks build di dalam direktori 'project'
+        context: .  # Menetapkan konteks build di dalam direktori 'project'
         file: ./Dockerfile  # Lokasi Dockerfile di root
         push: true
         tags: rafliafrz/bookswap:latest
