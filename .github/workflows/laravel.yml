@@ -30,7 +30,7 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.2'
+        php-version: '8.0'
         extensions: mbstring, pdo, dom
         coverage: none
         tools: composer:v2
@@ -52,8 +52,21 @@ jobs:
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
       working-directory: ./project
 
-    - name: Install Dependencies
+    - name: Install Dependencies (Composer)
       run: composer install -v
+      working-directory: ./project
+
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18' # Sesuaikan dengan versi Node.js yang kamu gunakan
+
+    - name: Install npm dependencies
+      run: npm install
+      working-directory: ./project
+
+    - name: Build Tailwind CSS
+      run: npm run build
       working-directory: ./project
 
     - name: Generate key
@@ -84,5 +97,7 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v6
       with:
+        context: ./project  # Menetapkan konteks build di dalam direktori 'project'
+        file: ./Dockerfile  # Lokasi Dockerfile di root
         push: true
         tags: rafliafrz/bookswap:latest
