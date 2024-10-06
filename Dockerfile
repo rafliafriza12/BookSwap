@@ -18,12 +18,17 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd pdo pdo_mysql
 
-# Copy file composer.json, composer.lock, dan package.json ke container
-COPY composer.json composer.lock ./
-COPY package.json package-lock.json ./
+# Copy file composer.json dan composer.lock dari folder project ke container
+COPY project/composer.json project/composer.lock ./
+
+# Copy file package.json dan package-lock.json dari folder project ke container
+COPY project/package.json project/package-lock.json ./
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Debugging: Cek isi direktori sebelum install composer
+RUN ls -l
 
 # Install dependencies PHP dengan Composer
 RUN composer install --no-dev --optimize-autoloader
@@ -31,8 +36,8 @@ RUN composer install --no-dev --optimize-autoloader
 # Install dependencies Node.js dengan npm untuk Tailwind
 RUN npm install
 
-# Copy seluruh file Laravel dari root folder proyek ke dalam container
-COPY . .
+# Copy seluruh file Laravel dari folder project ke dalam container
+COPY project/ .
 
 # Build Tailwind CSS
 RUN npm run build
