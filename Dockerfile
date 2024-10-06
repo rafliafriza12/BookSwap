@@ -1,10 +1,8 @@
-# Gunakan image PHP dengan Apache
+# Dockerfile
+
 FROM php:8.2-apache
 
-# Set working directory di dalam container
-WORKDIR /var/www/html
-
-# Install dependencies sistem yang diperlukan oleh Laravel
+# Install dependencies
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -18,17 +16,16 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd pdo pdo_mysql
 
-# Copy file composer.json dan composer.lock dari folder project ke container
+# Set working directory
+WORKDIR /var/www/html
+
+# Copy composer.json and composer.lock
 COPY project/composer.json project/composer.lock ./
 
-# Copy file package.json dan package-lock.json dari folder project ke container
-COPY project/package.json project/package-lock.json ./
-
-# Install Composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-
-# Debugging: Cek isi direktori sebelum install composer
-RUN ls -l
+# Log isi direktori untuk debugging
+RUN ls -la /var/www/html
+RUN cat /var/www/html/composer.json
+RUN cat /var/www/html/composer.lock
 
 # Install dependencies PHP dengan Composer
 RUN composer install --no-dev --optimize-autoloader
@@ -36,7 +33,7 @@ RUN composer install --no-dev --optimize-autoloader
 # Install dependencies Node.js dengan npm untuk Tailwind
 RUN npm install
 
-# Copy seluruh file Laravel dari folder project ke dalam container
+# Copy project files
 COPY project/ .
 
 # Build Tailwind CSS
