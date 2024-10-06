@@ -16,6 +16,9 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd pdo pdo_mysql
 
+# Aktifkan mod_rewrite untuk Apache
+RUN a2enmod rewrite
+
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -45,10 +48,11 @@ RUN npm run build
 # Atur permissions untuk folder storage dan bootstrap/cache
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/html/storage \
-    && chmod -R 775 /var/www/html/bootstrap/cache
+    && chmod -R 775 /var/www/html/bootstrap/cache \
+    && chmod -R 755 /var/www/html
 
-# Expose port 8000 untuk web server
-EXPOSE 8000
+# Expose port 80 untuk web server (bukan 8000, karena Apache menggunakan port 80)
+EXPOSE 80
 
 # Jalankan Apache
 CMD ["apache2-foreground"]
