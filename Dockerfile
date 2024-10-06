@@ -22,6 +22,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Set working directory
 WORKDIR /var/www/html
 
+# Copy project files
+COPY project/ .
+
 # Copy composer.json and composer.lock
 COPY project/composer.json project/composer.lock ./
 
@@ -35,9 +38,6 @@ RUN composer install --no-dev --optimize-autoloader
 
 # Install dependencies Node.js dengan npm untuk Tailwind
 RUN npm install
-
-# Copy project files
-COPY project/ .
 
 # Build Tailwind CSS
 RUN npm run build
