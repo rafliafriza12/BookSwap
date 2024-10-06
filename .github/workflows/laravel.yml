@@ -30,7 +30,7 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.0'
+        php-version: '8.2'
         extensions: mbstring, pdo, dom
         coverage: none
         tools: composer:v2
@@ -59,7 +59,7 @@ jobs:
     - name: Install Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '18' # Sesuaikan dengan versi Node.js yang kamu gunakan
+        node-version: '20' # Sesuaikan dengan versi Node.js yang kamu gunakan
 
     - name: Install npm dependencies
       run: npm install
