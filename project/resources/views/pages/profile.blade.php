@@ -25,7 +25,7 @@
                     </div>
 
                     <div class=" w-full py-2  px-3">
-                        <a href="" class=" underline">Ubah Kata Sandi ></a>
+                        <a href="/change-password/{{$user->id}}" class=" underline">Ubah Kata Sandi ></a>
                     </div>
                     <div class=" w-full">
                         <div class="flex items-center justify-center w-full">

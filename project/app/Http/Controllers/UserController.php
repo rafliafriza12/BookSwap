@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Conversation;
@@ -58,6 +59,7 @@ class UserController extends Controller
         return view('pages.profile', compact('user'));
     }
 
+
     public function editProfile(Request $request, $id){
         $request->validate([
             'name' => 'required',
@@ -82,8 +84,29 @@ class UserController extends Controller
         return redirect('/profile/'.auth()->user()->id)->with('success', 'sukses');
     }
 
-    public function changePasswordPage(){
-        return view('pages.ubahsandi');
+    public function changePasswordPage($id){
+        $user = User::where('id', $id)->first();
+        return view('pages.ubahsandi', compact('user'));
+    }
+
+    public function changePassword(Request $request,$id){
+        try {
+            $request->validate([
+                'newPassword' => 'required',
+            ]);
+        
+            // Jika validasi berhasil, lakukan proses penggantian password
+            $user = User::where('id', $id)->first();
+            $user->password = Hash::make($request->newPassword);
+            $user->save();
+        
+        } catch (\Throwable $th) {
+            // Mengarahkan kembali dengan pesan error jika terjadi kesalahan
+            return redirect('/change-password/'.auth()->user()->id)->with('error', 'Gagal mengubah password.');
+        }
+        
+        // Mengarahkan kembali ke halaman profil jika password berhasil diubah
+        return redirect('/profile/'.auth()->user()->id);
     }
 
     public function logout(Request $request){
