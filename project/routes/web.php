@@ -38,3 +38,4 @@ Route::post('/send-message/{receiver_id}', [ConversationController::class, 'send
 
 Route::get('/getAllBooks', [MainController::class, 'getAllBooks'])->middleware('auth');
 Route::get('/search/{keyword}', [MainController::class, 'search'])->middleware('auth');
+Route::get('/change-password', [UserController::class, 'changePasswordPage'])->middleware('auth'); 

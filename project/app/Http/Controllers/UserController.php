@@ -82,6 +82,10 @@ class UserController extends Controller
         return redirect('/profile/'.auth()->user()->id)->with('success', 'sukses');
     }
 
+    public function changePasswordPage(){
+        return view('pages.ubahsandi');
+    }
+
     public function logout(Request $request){
         Auth::logout();
         Session::forget('conversations');
