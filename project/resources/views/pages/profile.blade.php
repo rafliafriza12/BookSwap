@@ -23,6 +23,10 @@
                     <div class=" w-full py-2 border-b border-[#b3b3b3] px-3">
                         <input name="whatsapp" type="text" class="w-full bg-transparent focus:outline-none" value="{{$user->whatsapp}}">
                     </div>
+
+                    <div class=" w-full py-2  px-3">
+                        <a href="" class=" underline">Ubah Kata Sandi ></a>
+                    </div>
                     <div class=" w-full">
                         <div class="flex items-center justify-center w-full">
                             <label for="dropzone-file"
